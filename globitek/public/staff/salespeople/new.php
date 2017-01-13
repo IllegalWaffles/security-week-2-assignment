@@ -10,8 +10,8 @@
 	// Define the stuff we need
 	$errors = array();
 	$salesperson = array(
-		'firstName' => isset($_POST["firstname"]) && $submitted?$_POST["firstname"]:'',
-		'lastName' => isset($_POST["lastname"]) && $submitted?$_POST["lastname"]:'',
+		'first_name' => isset($_POST["firstname"]) && $submitted?$_POST["firstname"]:'',
+		'last_name' => isset($_POST["lastname"]) && $submitted?$_POST["lastname"]:'',
 		'phone' => isset($_POST["phonenumber"]) && $submitted?$_POST["phonenumber"]:'',
 		'email' => isset($_POST["email"]) && $submitted?$_POST["email"]:''
 	);
@@ -40,17 +40,16 @@
 		<form action="new.php" method="post">
 
 			First name: <br>
-			<input type="text" name="firstname" value="<?php echo $salesperson['firstName']; ?>">
+			<input type="text" name="firstname" value="<?php echo $salesperson['first_name']; ?>">
 			<br>
 			Last name: <br>
-			<input type="text" name="lastname" value="<?php echo $salesperson['lastName']; ?>">
+			<input type="text" name="lastname" value="<?php echo $salesperson['last_name']; ?>">
 			<br>
 			Phone number: <br>
 			<input type="text" name="phonenumber" value="<?php echo $salesperson['phone']; ?>">
 			<br>
 			Email: <br>
 			<input type="text" name="email" value="<?php echo $salesperson['email']; ?>">
-			
 			<br><br>
 			<input type="submit" name="submit" value="Submit">
 			

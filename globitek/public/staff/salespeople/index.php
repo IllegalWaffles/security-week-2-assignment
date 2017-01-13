@@ -8,7 +8,7 @@
 
   <h1>Salespeople</h1>
 
-  <a href="#add_a_url">Add a Salesperson</a><br />
+  <a href="new.php">Add a Salesperson</a><br />
   <br />
 
   <?php

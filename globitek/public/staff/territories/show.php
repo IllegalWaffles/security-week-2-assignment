@@ -17,7 +17,7 @@
 ?>
 
 	<div id="main-content">
-	<a href="../states/show.php?id= <?php echo $state_id; ?>">Back to State Details</a>
+	<a href="../states/show.php?id= <?php echo ur($state_id); ?>">Back to State Details</a>
 	<br />
 
 	<h1>Territory: <?php echo ht($territory['name']); ?></h1>
@@ -44,7 +44,7 @@
 ?>
 
 	<br />
-	<a href="edit.php?id= <?php echo trim($id); ?>">Edit</a><br />
+	<a href="edit.php?id= <?php echo ur(trim($id)); ?>">Edit</a><br />
 
 	</div>
 

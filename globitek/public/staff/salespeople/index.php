@@ -31,10 +31,10 @@
 		echo "<td>" . ht($salesperson['first_name']) . "</td>";
 		echo "<td>" . ht($salesperson['last_name']) . "</td>";
 		echo "<td>";
-		echo "<a href=\"show.php?id=" . $salesperson['id'] . "\">Show</a>";
+		echo "<a href=\"show.php?id=" . ur($salesperson['id']) . "\">Show</a>";
 		echo "</td>";
 		echo "<td>";
-		echo "<a href=\"edit.php?id=" . $salesperson['id'] . "\">Edit</a>";
+		echo "<a href=\"edit.php?id=" . ur($salesperson['id']) . "\">Edit</a>";
 		echo "</td>";
 		echo "</tr>";
 	} // end while $salesperson

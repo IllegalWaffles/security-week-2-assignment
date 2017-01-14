@@ -17,12 +17,12 @@
 	
 	if($submitted){
 		
-		$territory['position'] = isset($_POST['position'])?$_POST['position']:'';	
-		$territory['name'] = isset($_POST['name'])?$_POST['name']:'';
+		$territory['position'] = 	isset($_POST['position'])?$_POST['position']:'';	
+		$territory['name'] = 		isset($_POST['name'])?$_POST['name']:'';
 		
 		$result = update_territory($territory);
 		if($result === true) {
-			redirect_to('show.php?id=' . $territory['id']);
+			redirect_to('show.php?id=' . ur($territory['id']));
 		} else 
 			$errors = $result;
 		
@@ -31,11 +31,11 @@
 ?>
 
 	<div id="main-content">
-	<a href="../states/show.php?id= <?php echo trim($territory['state_id']); ?>">Back to State Details</a><br />
+	<a href="../states/show.php?id= <?php echo ur(trim($territory['state_id'])); ?>">Back to State Details</a><br />
 
 	<h1>Edit Territory: <?php echo ht($territory['name']); ?></h1>
 
-	<form action="edit.php?id= <?php echo $territory['id']; ?>" method="post">
+	<form action="edit.php?id= <?php echo ur($territory['id']); ?>" method="post">
 
 		Territory name: <br>
 		<input type="text" name="name" value="<?php echo ht($territory['name']); ?>">

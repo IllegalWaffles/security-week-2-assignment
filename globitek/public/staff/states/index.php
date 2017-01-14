@@ -31,10 +31,10 @@
 		echo "<td>" . ht($state['name']) . "</td>";
 		echo "<td>" . ht($state['code']) . "</td>";
 		echo "<td>";
-		echo "<a href=\"show.php?id=" . $state['id'] . "\">Show</a>";
+		echo "<a href=\"show.php?id=" . ur($state['id']) . "\">Show</a>";
 		echo "</td>";
 		echo "<td>";
-		echo "<a href=\"edit.php?id=" . $state['id'] . "\">Edit</a>";
+		echo "<a href=\"edit.php?id=" . ur($state['id']) . "\">Edit</a>";
 		echo "</td>";
 		echo "</tr>";
 	} // end while $states

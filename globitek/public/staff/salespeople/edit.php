@@ -18,14 +18,14 @@
 	
 	if($submitted){
 	
-		$salesperson['first_name'] = 	isset($_POST['firstname'])?$_POST['firstname']:'';
-		$salesperson['last_name'] = 	isset($_POST['lastname'])?$_POST['lastname']:'';
-		$salesperson['phone'] = 		isset($_POST['phonenumber'])?$_POST['phonenumber']:'';
-		$salesperson['email'] = 		isset($_POST['email'])?$_POST['email']:'';
+		$salesperson['first_name'] = 	isset($_POST['firstname'])?		$_POST['firstname']:'';
+		$salesperson['last_name'] = 	isset($_POST['lastname'])?		$_POST['lastname']:'';
+		$salesperson['phone'] = 		isset($_POST['phonenumber'])?	$_POST['phonenumber']:'';
+		$salesperson['email'] = 		isset($_POST['email'])?			$_POST['email']:'';
 	
 		$result = update_salesperson($salesperson);
 		if($result === true) {
-			redirect_to('show.php?id=' . $salesperson['id']);
+			redirect_to('show.php?id=' . ur($salesperson['id']));
 		} else 
 			$errors = $result;
 	
@@ -40,7 +40,7 @@
 
 	<?php echo display_errors($errors); ?>
   
-		<form action="edit.php?id=<?php echo $salesperson['id']; ?>" method="post">
+		<form action="edit.php?id=<?php echo ht(ur($salesperson['id'])); ?>" method="post">
 
 			First name: <br>
 			<input type="text" name="firstname" value="<?php echo ht($salesperson['first_name']); ?>">

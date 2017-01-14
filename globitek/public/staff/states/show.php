@@ -11,7 +11,7 @@
 	// No loop, only one result
 	$state = db_fetch_assoc($state_result);
 
-	$page_title = 'Staff: State of ' . $state['name'];
+	$page_title = 'Staff: State of ' . ht($state['name']);
 	include(SHARED_PATH . '/header.php'); 
 
 ?>
@@ -37,12 +37,12 @@
 	</table>
 
 	<br />
-	<a href="edit.php?id= <?php echo $state['id']; ?>">Edit</a><br />
+	<a href="edit.php?id= <?php echo ur($state['id']); ?>">Edit</a><br />
 	<hr />
 
 	<h2>Territories</h2>
 	<br />
-	<a href="../territories/new.php?id=<?php echo $id;?>">Add a Territory</a><br />
+	<a href="../territories/new.php?id=<?php echo ur($id);?>">Add a Territory</a><br />
 
 <?php
 
@@ -53,7 +53,7 @@
 	while($territory = db_fetch_assoc($territory_result)) {
 		
 		echo "<li>";
-		echo "<a href=\"../territories/show.php?id=" . $territory['id'] . "\">";
+		echo "<a href=\"../territories/show.php?id=" . ur($territory['id']) . "\">";
 		echo ht($territory['name']);
 		echo "</a>";
 		echo "</li>";

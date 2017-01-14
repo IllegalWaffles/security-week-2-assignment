@@ -10,8 +10,8 @@
 	$errors = array();
 	$state = array(
 	
-		'name' => isset($_POST['name']) && $submitted?$_POST['name']:'',
-		'code' => isset($_POST['code']) && $submitted?$_POST['code']:'',
+		'name' => 		isset($_POST['name']) 		&& $submitted?$_POST['name']:'',
+		'code' => 		isset($_POST['code']) 		&& $submitted?$_POST['code']:'',
 		'country_id' => isset($_POST['country_id']) && $submitted?$_POST['country_id']:''
 	
 	);
@@ -22,7 +22,7 @@
 		if($result === true) {
 		
 			$new_id = db_insert_id($db);
-			redirect_to('show.php?id=' . $new_id);
+			redirect_to('show.php?id=' . ur($new_id));
 		
 		} else 
 			$errors = $result;

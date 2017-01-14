@@ -26,7 +26,7 @@
 		$result = insert_territory($territory);
 		if($result === true) {
 			$new_id = db_insert_id($db);
-			redirect_to('show.php?id=' . $new_id);
+			redirect_to('show.php?id=' . ur($new_id));
 		} else 
 			$errors = $result;
 		
@@ -35,13 +35,13 @@
 ?>
 
 	<div id="main-content">
-	<a href="../states/show.php?id= <?php echo trim($stateID); ?>">Back to State Details</a><br />
+	<a href="../states/show.php?id= <?php echo ur(trim($stateID)); ?>">Back to State Details</a><br />
 
 	<h1>New Territory</h1>
 
 	<?php echo display_errors($errors); ?>
 
-	<form action="new.php?id= <?php echo $stateID; ?>" method="post">
+	<form action="new.php?id= <?php echo ur($stateID); ?>" method="post">
 
 		Territory name: <br>
 		<input type="text" name="name" value="<?php echo ht($territory['name']); ?>">

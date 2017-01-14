@@ -37,7 +37,7 @@ echo "</table>";
 db_free_result($users_result);
 ?>
 <br />
-<a href="edit.php?id=<?php echo rawurlencode($user['id']); ?>">Edit</a><br />
+<a href="edit.php?id=<?php echo ur($user['id']); ?>">Edit</a><br />
 
 </div>
 

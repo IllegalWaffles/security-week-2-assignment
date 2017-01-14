@@ -28,10 +28,10 @@
       echo "<td>" . ht($user['last_name']) . "</td>";
       echo "<td>" . ht($user['username']) . "</td>";
       echo "<td>";
-      echo "<a href=\"show.php?id=" . rawurlencode($user['id']) . "\">Show</a>";
+      echo "<a href=\"show.php?id=" . ur($user['id']) . "\">Show</a>";
       echo "</td>";
       echo "<td>";
-      echo "<a href=\"edit.php?id=" . rawurlencode($user['id']) . "\">Edit</a>";
+      echo "<a href=\"edit.php?id=" . ur($user['id']) . "\">Edit</a>";
       echo "</td>";
       echo "</tr>";
     } // end while $user

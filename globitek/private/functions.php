@@ -16,6 +16,10 @@
     return rawurlencode($string);
   }
 
+  function ur($string="") {
+	return rawurlencode($string);
+  }
+  
   function redirect_to($location) {
     header("Location: " . $location);
     exit;

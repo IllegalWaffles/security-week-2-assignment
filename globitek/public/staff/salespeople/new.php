@@ -10,10 +10,10 @@
 	// Define the stuff we need
 	$errors = array();
 	$salesperson = array(
-		'first_name' => isset($_POST["firstname"]) && $submitted?$_POST["firstname"]:'',
-		'last_name' => isset($_POST["lastname"]) && $submitted?$_POST["lastname"]:'',
-		'phone' => isset($_POST["phonenumber"]) && $submitted?$_POST["phonenumber"]:'',
-		'email' => isset($_POST["email"]) && $submitted?$_POST["email"]:''
+		'first_name' => isset($_POST["firstname"])		&& $submitted?$_POST["firstname"]:'',
+		'last_name' => 	isset($_POST["lastname"]) 		&& $submitted?$_POST["lastname"]:'',
+		'phone' => 		isset($_POST["phonenumber"]) 	&& $submitted?$_POST["phonenumber"]:'',
+		'email' => 		isset($_POST["email"]) 			&& $submitted?$_POST["email"]:''
 	);
 	
 	if($submitted){
@@ -22,7 +22,7 @@
 		$result = insert_salesperson($salesperson);
 		if($result === true) {
 			$new_id = db_insert_id($db);
-			redirect_to('show.php?id=' . $new_id);
+			redirect_to('show.php?id=' . ur($new_id));
 		} else 
 			$errors = $result;
 		

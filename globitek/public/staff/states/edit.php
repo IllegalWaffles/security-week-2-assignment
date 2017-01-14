@@ -18,13 +18,13 @@
 	
 	if($submitted){
 		
-		$state['name'] = 		isset($_POST['name'])?$_POST['name']:'';
-		$state['code'] =		isset($_POST['code'])?$_POST['code']:'';
+		$state['name'] = 		isset($_POST['name'])?		$_POST['name']:'';
+		$state['code'] =		isset($_POST['code'])?		$_POST['code']:'';
 		$state['country_id'] = 	isset($_POST['country_id'])?$_POST['country_id']:'';
 		
 		$result = update_state($state);
 		if($result === true) {
-			redirect_to('show.php?id=' . $state['id']);
+			redirect_to('show.php?id=' . ur($state['id']));
 		} else 
 			$errors = $result;
 		
@@ -38,7 +38,7 @@
   <h1>Edit State: <?php echo ht($state['name']); ?></h1>
   <?php echo display_errors($errors);?>
   
-	<form action="edit.php?id=<?php echo $state['id']; ?>" method="post">
+	<form action="edit.php?id=<?php echo ur($state['id']); ?>" method="post">
 
 		Name: <br>
 		<input type="text" name="name" value="<?php echo ht($state['name']);?>">

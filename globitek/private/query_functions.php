@@ -45,9 +45,25 @@
 	}
 
 	function validate_state($state, $errors=array()) {
-	// TODO add validations
-
+		
+		if (is_blank($state['name'])) 
+			$errors[] = "State name cannot be blank.";
+		elseif (!has_length($state['name'], array('min' => 2, 'max' => 255))) 
+			$errors[] = "Name must be between 2 and 255 characters.";
+		
+		if (is_blank($state['code'])) 
+			$errors[] = "Code cannot be blank.";
+		elseif (!has_length($state['code'], array('exact' => 2))) 
+			$errors[] = "Code must be a two character sequence.";
+		
+		if (is_blank($state['country_id']))
+			$errors[] = "Country cannot be blank.";
+		elseif(!has_number_value($state['country_id'], array('min' => 1, 'max' => 2)))
+			$errors[] = "Invalid country code.";
+		
+		
 		return $errors;
+		
 	}
 
 	// Add a new state to the table
@@ -60,18 +76,23 @@
 			return $errors;
 		}
 
-		$sql = ""; // TODO add SQL
-		// For INSERT statments, $result is just true/false
-		$result = db_query($db, $sql);
-		if($result) {
+		// Prepared statements are sanitized. Lets use those instead.
+		$stmt = $db->prepare("INSERT INTO states (name, code, country_id) VALUES (?, ?, ?);");
+		$stmt->bind_param('ssi', $state['name'], $state['code'], $state['country_id']);
+		$result = $stmt->execute();
+		
+		if($result)
 			return true;
-		} else {
+		else{
+			
 			// The SQL INSERT statement failed.
 			// Just show the error, not the form
 			echo db_error($db);
 			db_close($db);
 			exit;
+		
 		}
+		
 	}
 
 	// Edit a state record
@@ -80,13 +101,18 @@
 		global $db;
 
 		$errors = validate_state($state);
+		
 		if (!empty($errors)) {
 			return $errors;
 		}
 
-		$sql = ""; // TODO add SQL
-		// For update_state statments, $result is just true/false
-		$result = db_query($db, $sql);
+		// Prepared statements are sanitized. Lets use those instead.
+		$stmt = $db->prepare("UPDATE states SET name = ?, code = ?, country_id = ? WHERE id = ? LIMIT 1");
+		$stmt->bind_param('ssii', $state['name'], $state['code'], $state['country_id'], $state['id']);
+		$result = $stmt->execute();
+		
+		// For update_user statments, $result is just true/false
+		//$result = db_query($db, $sql);
 		if($result) {
 			return true;
 		} else {
@@ -131,7 +157,14 @@
 	}
 
 	function validate_territory($territory, $errors=array()) {
-		// TODO add validations
+		
+		if (is_blank($territory['name'])) 
+			$errors[] = "Name cannot be blank.";
+		elseif (!has_length($territory['name'], array('min' => 2, 'max' => 255))) 
+			$errors[] = "Name must be between 2 and 255 characters.";
+
+		if (is_blank($territory['position']) || is_int($territory['position'])) 
+			$errors[] = "Position cannot be blank and must be a number.";
 
 		return $errors;
 	}
@@ -146,9 +179,11 @@
 			return $errors;
 		}
 
-		$sql = ""; // TODO add SQL
+		$stmt = $db->prepare('INSERT INTO territories (name, position, state_id) VALUES (?, ?, ?);'); 
+		$stmt->bind_param('ssi', $territory['name'], $territory['position'], $territory['state_id']);
+		
 		// For INSERT statments, $result is just true/false
-		$result = db_query($db, $sql);
+		$result = $stmt->execute();
 		if($result) {
 			return true;
 		} else {
@@ -258,16 +293,11 @@
 			return $errors;
 		}
 
-		$sql = "INSERT INTO salespeople ";
-		$sql .= "(first_name, last_name, phone, email) ";
-		$sql .= "VALUES (";
-		$sql .= "'" . $salesperson['first_name'] . "',";
-		$sql .= "'" . $salesperson['last_name'] . "',";
-		$sql .= "'" . $salesperson['phone'] . "',";
-		$sql .= "'" . $salesperson['email'] . "'";
-		$sql .= ");";
-		// For INSERT statments, $result is just true/false
-		$result = db_query($db, $sql);
+		// Prepared statements are sanitized. Lets use those instead.
+		$stmt = $db->prepare("INSERT INTO salespeople (first_name, last_name, phone, email) VALUES (?, ?, ?, ?);");
+		$stmt->bind_param('ssss', $salesperson['first_name'], $salesperson['last_name'], $salesperson['phone'], $salesperson['email']);
+		$result = $stmt->execute();
+		
 		if($result) {
 			return true;
 		} else {
@@ -288,20 +318,12 @@
 		if (!empty($errors)) {
 			return $errors;
 		}
-
-		$sql = "UPDATE salespeople SET ";
-		$sql .= "first_name='" . $salesperson['first_name'] . "', ";
-		$sql .= "last_name='" . $salesperson['last_name'] . "', ";
-		$sql .= "phone='" . $salesperson['phone'] . "', ";
-		$sql .= "email='" . $salesperson['email'] . "' ";
-		$sql .= "WHERE id='" . $salesperson['id'] . "' ";
-		$sql .= "LIMIT 1;";
-		// For update_user statments, $result is just true/false
 		
-		echo "<br>";
-		echo $sql;
+		// Prepared statements are sanitized. Lets use those instead.
+		$stmt = $db->prepare('UPDATE salespeople SET first_name=?, last_name=?, phone=?, email=? WHERE id=? LIMIT 1;');
+		$stmt->bind_param('ssssi', $salesperson['first_name'], $salesperson['last_name'], $salesperson['phone'], $salesperson['email'], $salesperson['id']);
+		$result = $stmt->execute();
 		
-		$result = db_query($db, $sql);
 		if($result) {
 			return true;
 		} else {
@@ -386,17 +408,11 @@
 		}
 
 		$created_at = date("Y-m-d H:i:s");
-		$sql = "INSERT INTO users ";
-		$sql .= "(first_name, last_name, email, username, created_at) ";
-		$sql .= "VALUES (";
-		$sql .= "'" . $user['first_name'] . "',";
-		$sql .= "'" . $user['last_name'] . "',";
-		$sql .= "'" . $user['email'] . "',";
-		$sql .= "'" . $user['username'] . "',";
-		$sql .= "'" . $created_at . "'";
-		$sql .= ");";
-		// For INSERT statments, $result is just true/false
-		$result = db_query($db, $sql);
+		
+		$stmt = $db->prepare('INSERT INTO users (first_name, last_name, email, username, created_at) VALUES (?, ?, ?, ?, ?)');
+		$stmt->bind_param('sssss', $user['first_name'], $user['last_name'], $user['email'], $user['username'], $created_at);
+		$result = $stmt->execute();
+		
 		if($result) {
 			return true;
 		} else {
@@ -417,16 +433,11 @@
 		if (!empty($errors)) {
 			return $errors;
 		}
-
-		$sql = "UPDATE users SET ";
-		$sql .= "first_name='" . $user['first_name'] . "', ";
-		$sql .= "last_name='" . $user['last_name'] . "', ";
-		$sql .= "email='" . $user['email'] . "', ";
-		$sql .= "username='" . $user['username'] . "' ";
-		$sql .= "WHERE id='" . $user['id'] . "' ";
-		$sql .= "LIMIT 1;";
-		// For update_user statments, $result is just true/false
-		$result = db_query($db, $sql);
+		
+		$stmt = $db->prepare('UPDATE users SET first_name=?, last_name=?, email=?, username=? WHERE id=? LIMIT 1;');
+		$stmt->bind_param('ssssi', $user['first_name'], $user['last_name'], $user['email'], $user['username'], $user['id']);
+		$result = $stmt->execute();
+		
 		if($result) {
 			return true;
 		} else {

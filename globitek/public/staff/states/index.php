@@ -1,42 +1,48 @@
-<?php require_once('../../../private/initialize.php'); ?>
+<?php 
 
-<?php $page_title = 'Staff: States'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
+	require_once('../../../private/initialize.php'); 
 
-<div id="main-content">
-  <a href="../index.php">Back to Menu</a><br />
+	$page_title = 'Staff: States'; 
+	include(SHARED_PATH . '/header.php'); 
+	
+?>
 
-  <h1>States</h1>
+	<div id="main-content">
+	<a href="../index.php">Back to Menu</a><br />
 
-  <a href="#add_a_url">Add a State</a><br />
-  <br />
+	<h1>States</h1>
 
-  <?php
-    $state_result = find_all_states();
+	<a href="new.php">Add a State</a><br />
+	<br />
 
-    echo "<table id=\"states\" style=\"width: 500px;\">";
-    echo "<tr>";
-    echo "<th>Name</th>";
-    echo "<th>Code</th>";
-    echo "<th></th>";
-    echo "<th></th>";
-    echo "</tr>";
-    while($state = db_fetch_assoc($state_result)) {
-      echo "<tr>";
-      echo "<td>" . $state['name'] . "</td>";
-      echo "<td>" . $state['code'] . "</td>";
-      echo "<td>";
-      echo "<a href=\"#add_a_url\">Show</a>";
-      echo "</td>";
-      echo "<td>";
-      echo "<a href=\"#add_a_url\">Edit</a>";
-      echo "</td>";
-      echo "</tr>";
-    } // end while $states
-    db_free_result($state_result);
-    echo "</table>"; // #states
-  ?>
+<?php
 
-</div>
+	$state_result = find_all_states();
 
-<?php include(SHARED_PATH . '/footer.php'); ?>
+	echo "<table id=\"states\" style=\"width: 500px;\">";
+	echo "<tr>";
+	echo "<th>Name</th>";
+	echo "<th>Code</th>";
+	echo "<th></th>";
+	echo "<th></th>";
+	echo "</tr>";
+	while($state = db_fetch_assoc($state_result)) {
+		echo "<tr>";
+		echo "<td>" . ht($state['name']) . "</td>";
+		echo "<td>" . ht($state['code']) . "</td>";
+		echo "<td>";
+		echo "<a href=\"show.php?id=" . $state['id'] . "\">Show</a>";
+		echo "</td>";
+		echo "<td>";
+		echo "<a href=\"edit.php?id=" . $state['id'] . "\">Edit</a>";
+		echo "</td>";
+		echo "</tr>";
+	} // end while $states
+	db_free_result($state_result);
+	echo "</table>"; // #states
+
+	echo "</div>";
+
+	include(SHARED_PATH . '/footer.php'); 
+
+?>

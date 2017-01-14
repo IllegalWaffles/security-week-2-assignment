@@ -31,30 +31,30 @@
 ?>
 
 	<div id="main-content">
-		<a href="index.php">Back to Salespeople List</a><br />
+	<a href="index.php">Back to Salespeople List</a><br />
 
-		<h1>New Salesperson</h1>
+	<h1>New Salesperson</h1>
 
-		<?php echo display_errors($errors); ?>
+	<?php echo display_errors($errors); ?>
+	
+	<form action="new.php" method="post">
+
+		First name: <br>
+		<input type="text" name="firstname" value="<?php echo ht($salesperson['first_name']); ?>">
+		<br>
+		Last name: <br>
+		<input type="text" name="lastname" value="<?php echo ht($salesperson['last_name']); ?>">
+		<br>
+		Phone number: <br>
+		<input type="text" name="phonenumber" value="<?php echo ht($salesperson['phone']); ?>">
+		<br>
+		Email: <br>
+		<input type="text" name="email" value="<?php echo ht($salesperson['email']); ?>">
+		<br><br>
+		<input type="submit" name="submit" value="Submit">
 		
-		<form action="new.php" method="post">
-
-			First name: <br>
-			<input type="text" name="firstname" value="<?php echo $salesperson['first_name']; ?>">
-			<br>
-			Last name: <br>
-			<input type="text" name="lastname" value="<?php echo $salesperson['last_name']; ?>">
-			<br>
-			Phone number: <br>
-			<input type="text" name="phonenumber" value="<?php echo $salesperson['phone']; ?>">
-			<br>
-			Email: <br>
-			<input type="text" name="email" value="<?php echo $salesperson['email']; ?>">
-			<br><br>
-			<input type="submit" name="submit" value="Submit">
-			
-			
-		</form>
+		
+	</form>
 
 	</div>
 

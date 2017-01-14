@@ -9,7 +9,7 @@
 	// No loop, only one result
 	$salesperson = db_fetch_assoc($salespeople_result);
 
-	$page_title = 'Staff: Edit Salesperson ' . $salesperson['first_name'] . " " . $salesperson['last_name']; 
+	$page_title = 'Staff: Edit Salesperson ' . ht($salesperson['first_name']) . " " . ht($salesperson['last_name']); 
 	include(SHARED_PATH . '/header.php'); 
 	
 	$errors = array();
@@ -29,7 +29,6 @@
 		} else 
 			$errors = $result;
 	
-		
 	}
 	
 ?>
@@ -37,23 +36,23 @@
 	<div id="main-content">
 	<a href="edit.php">Back to Salespeople List</a><br />
 
-	<h1>Edit Salesperson: <?php echo $salesperson['first_name'] . " " . $salesperson['last_name']; ?></h1>
+	<h1>Edit Salesperson: <?php echo ht($salesperson['first_name']) . " " . ht($salesperson['last_name']); ?></h1>
 
 	<?php echo display_errors($errors); ?>
   
 		<form action="edit.php?id=<?php echo $salesperson['id']; ?>" method="post">
 
 			First name: <br>
-			<input type="text" name="firstname" value="<?php echo $salesperson['first_name']; ?>">
+			<input type="text" name="firstname" value="<?php echo ht($salesperson['first_name']); ?>">
 			<br>
 			Last name: <br>
-			<input type="text" name="lastname" value="<?php echo $salesperson['last_name']; ?>">
+			<input type="text" name="lastname" value="<?php echo ht($salesperson['last_name']); ?>">
 			<br>
 			Phone number: <br>
-			<input type="text" name="phonenumber" value="<?php echo $salesperson['phone']; ?>">
+			<input type="text" name="phonenumber" value="<?php echo ht($salesperson['phone']); ?>">
 			<br>
 			Email: <br>
-			<input type="text" name="email" value="<?php echo $salesperson['email']; ?>">
+			<input type="text" name="email" value="<?php echo ht($salesperson['email']); ?>">
 			<br><br>
 			<input type="submit" name="submit" value="Submit">
 			

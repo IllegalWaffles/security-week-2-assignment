@@ -35,4 +35,18 @@
 		
 	}
   
+	function has_number_value($value, $options=array()){
+		
+		if(isset($options['max']) && ($value > $options['max'])) {
+			return false;
+		} elseif(isset($options['min']) && ($value < $options['min'])) {
+			return false;
+		} elseif(isset($options['exact']) && ($value != $options['exact'])) {
+			return false;
+		} else {
+			return true;
+		}
+		
+	}
+	
 ?>

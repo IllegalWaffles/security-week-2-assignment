@@ -205,9 +205,10 @@
 			return $errors;
 		}
 
-			$sql = ""; // TODO add SQL
+			$stmt = $db->prepare('UPDATE territories SET name=?, position=?, state_id=? WHERE id=? LIMIT 1;'); 
+			$stmt->bind_param('siii', $territory['name'], $territory['position'], $territory['state_id'], $territory['id']);
 			// For update_territory statments, $result is just true/false
-			$result = db_query($db, $sql);
+			$result = $stmt->execute();
 		if($result) {
 			return true;
 		} else {
